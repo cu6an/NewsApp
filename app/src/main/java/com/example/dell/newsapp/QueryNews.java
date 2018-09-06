@@ -2,9 +2,11 @@ package com.example.dell.newsapp;
 
 import android.text.TextUtils;
 import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,11 +25,11 @@ public final class QueryNews {
      */
     private static final String LOG_TAG = QueryNews.class.getSimpleName();
 
-    private QueryNews(){
+    private QueryNews() {
 
     }
 
-    public static List<News> fetchNewsData(String requestUrl){
+    public static List<News> fetchNewsData(String requestUrl) {
 
         try {
             Thread.sleep(2000);
@@ -91,7 +93,7 @@ public final class QueryNews {
                 Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
+            Log.e(LOG_TAG, "Problem retrieving the News JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -143,16 +145,24 @@ public final class QueryNews {
 
                 JSONObject currentNews = newsArray.getJSONObject(i);
 
+                JSONArray tagsArray = currentNews.getJSONArray("tags");
+                String author = "";
+
+                for (int j = 0; j < tagsArray.length(); j++) {
+                    JSONObject currentAuthor = tagsArray.getJSONObject(j);
+                    author = currentAuthor.getString("webTitle");
+                }
+
+
                 String headline = currentNews.getString("sectionName");
                 String date = currentNews.getString("webPublicationDate");
                 String brief = currentNews.getString("webTitle");
                 String nUrl = currentNews.getString("webUrl");
 
-                // Create a new {@link Earthquake} object with the magnitude, location, time,
-                // and url from the JSON response.
-                News latest = new News(headline, date, brief, nUrl);
 
-                // Add the new {@link Earthquake} to the list of earthquakes.
+                /*Create new News object with its corresponding arguments*/
+                News latest = new News(headline, date, brief, nUrl, author);
+
                 news.add(latest);
 
             }
@@ -160,7 +170,7 @@ public final class QueryNews {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e("QueryNews", "Problem parsing the News JSON results", e);
         }
 
         return news;

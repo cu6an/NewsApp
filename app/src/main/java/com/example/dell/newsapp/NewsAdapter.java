@@ -11,6 +11,10 @@ import java.util.List;
 
 public class NewsAdapter extends ArrayAdapter<News> {
 
+    /*Variables to be used when formatting time*/
+    private static final String T_SEPERATOR = "T";
+    private static String Z_SEPERATOR = "Z";
+
     public NewsAdapter(Context context, List<News> news) {
         super(context, 0, news);
     }
@@ -30,11 +34,35 @@ public class NewsAdapter extends ArrayAdapter<News> {
         TextView sectionTextView = (TextView) listItemView.findViewById(R.id.section);
         sectionTextView.setText(currentNews.getHeadline());
 
+        /*Split the date and time format, to look nice and seperated, and to also remove unwanted characters in the
+         * final value*/
+        String originalDate = currentNews.getDate();
+        String splitDate = "";
+        String splitTime = "";
+
+        if (originalDate.contains(T_SEPERATOR)) {
+            String[] part = originalDate.split(T_SEPERATOR);
+            splitDate = part[0] + "\n";
+            splitTime = part[1];
+        }
+
+        String finalDate = splitDate + splitTime;
+
+        if (finalDate.contains(Z_SEPERATOR)) {
+            String[] parts = finalDate.split(Z_SEPERATOR);
+            finalDate = parts[0];
+        }
+
+        /*Set the text views to display the data they are supposed to, aided by the adapter*/
+
         TextView dateTextView = (TextView) listItemView.findViewById(R.id.date);
-        dateTextView.setText(currentNews.getDate());
+        dateTextView.setText(finalDate);
 
         TextView briefTextView = (TextView) listItemView.findViewById(R.id.brief);
         briefTextView.setText(currentNews.getBrief());
+
+        TextView authorTextView = (TextView) listItemView.findViewById(R.id.author);
+        authorTextView.setText(currentNews.getAuthor());
 
         return listItemView;
     }

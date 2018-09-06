@@ -1,27 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E9EFF1"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/section"
-        tools:text="Headline"/>
-
-    <TextView
+        style="@style/TextViews"
         android:layout_width="match_parent"
-        android:id="@+id/date"
         android:layout_height="wrap_content"
-        tools:text="2018-08-16"/>
+        android:paddingTop="5dp"
+        android:textStyle="bold"
+        tools:text="Headline" />
 
     <TextView
-        android:layout_width="match_parent"
         android:id="@+id/brief"
+        style="@style/TextViews"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Every one of Madonna's 78 singles – ranked!"/>
+        android:paddingTop="5dp"
+        tools:text="Every one of Madonna's 78 singles – ranked!" />
+
+    <TextView
+        android:id="@+id/date"
+        style="@style/TextViews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        tools:text="2018-08-16" />
+
+    <TextView
+        android:id="@+id/author"
+        style="@style/TextViews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="5dp"
+        android:textStyle="italic"
+        tools:text="I wrote this!" />
 
 </LinearLayout>
