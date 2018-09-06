@@ -8,4 +8,11 @@
     <string name="settings_title">News Settings</string>
 
     <string name="no_internet_connection">Please check your internet connection</string>
+
+    <string name="settings_min_magnitude_label">Title</string>
+
+    <string name="settings_min_magnitude_key" translatable="false">section_name</string>
+
+    <string name="settings_min_magnitude_default" translatable="false">Type preference here</string>
+
 </resources>
